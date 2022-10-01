@@ -8,8 +8,8 @@ from item import Item
 from building import Building
 from module import Module
 
-imageFolder_Tiered = 'resources/images/tiered/'
-imageFolder_Single_64x64 = 'resources/images/single_64x64/'
+imageFolder_Tiered = '../resources/images/tiered/'
+imageFolder_Single_64x64 = '../resources/images/single_64x64/'
 
 itemDict = {}
 

@@ -18,8 +18,8 @@ mining = ['Electric Mining Drill', 'Burner Mining Drill']
 pumping = ['Offshore Pump']
 drilling = ['Pumpjack']
 
-imageFolder_Tiered = 'resources/images/tiered/'
-imageFolder_Single_64x64 = 'resources/images/single_64x64/'
+imageFolder_Tiered = '../resources/images/tiered/'
+imageFolder_Single_64x64 = '../resources/images/single_64x64/'
 
 recipeDict = {}
 

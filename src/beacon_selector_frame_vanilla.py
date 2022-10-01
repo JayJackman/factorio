@@ -61,7 +61,7 @@ class BeaconSelectorFrame(tk.Frame):
         self.beaconSelectorFrame.grid(row=0, column=0, padx=5, pady=5)
 
         # Set up the Beacon Icon Label
-        self.beaconIcon = utils.getIcon('resources/images/tiered/basic-beacon.png')
+        self.beaconIcon = utils.getIcon(itemDict['Beacon'].imageFile)
         self.beaconIconLabel = tk.Label(self.beaconSelectorFrame, image=self.beaconIcon)
         self.beaconIconLabel.grid(row=0, column=0, padx=5, pady=5)
 
