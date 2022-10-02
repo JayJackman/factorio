@@ -68,7 +68,7 @@ class FactorioGui(tk.Frame):
             self.rootNode.applyRawIngredient(newPlan.desiredIngredient.item)
             newNode = oldNode
 
-        elif newPlan.recipe.name == oldNode.plan.recipe.name:
+        elif newPlan.recipe == oldNode.plan.recipe:
             # Here, we haven't changed the recipe but need to update our children for modified ingredient amounts
             self.updateNode(oldNode, newPlan)
             newNode = oldNode
