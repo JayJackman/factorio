@@ -10,7 +10,7 @@ from ingredient import Ingredient
 from dictionaries.items import itemDict
 
 
-class Recipe():
+class Recipe:
     def __init__(self, name, time, allowsProd: bool, inputs: IngredientList, outputs: IngredientList,
                  buildingList=None, imageFilePath=None):
         if buildingList is None:
