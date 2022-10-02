@@ -6,7 +6,7 @@ Date Created: 6/27/2021
 import tkinter as tk
 
 from plan_node import PlanNode
-from ingredient_frame import IngredientFrame
+from frames.ingredient_frame import IngredientFrame
 from ingredient import Ingredient
 
 class TotalStatisticsFrame(tk.Frame):
@@ -62,7 +62,7 @@ class TotalStatisticsFrame(tk.Frame):
             if ingredient.amount < 0:
                 # Here, we have an input
                 ingredientFrame = IngredientFrame(self.inputSubFrame, Ingredient(ingredient.name, -ingredient.amount))
-                ingredientFrame.grid(row=(numInputs//7), column=(numInputs) % 7 + 1, padx=5, pady=5)
+                ingredientFrame.grid(row=(numInputs//7), column=numInputs % 7 + 1, padx=5, pady=5)
                 self.inputIngredientFrames.append(ingredientFrame)
                 numInputs += 1
             else:

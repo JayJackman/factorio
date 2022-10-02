@@ -11,11 +11,12 @@ from plan import Plan
 from building import Building
 
 # Import the subframe classes
-from recipe_selector_frame import RecipeSelectorFrame
-from statistics_frame import StatisticsFrame
-from beacon_selector_frame_vanilla import BeaconSelectorFrame as BeaconFrame
-from building_selector_frame import BuildingSelectorFrame as BuildingFrame
-from desired_ingredient_frame import DesiredIngredientFrame
+from frames.recipe_selector_frame import RecipeSelectorFrame
+from frames.statistics_frame import StatisticsFrame
+from frames.beacon_selector_frame import BeaconSelectorFrame as BeaconFrame
+from frames.building_selector_frame import BuildingSelectorFrame as BuildingFrame
+from frames.desired_ingredient_frame import DesiredIngredientFrame
+
 
 class PlanViewerFrame(tk.Frame):
     def __init__(self, parent, planNode: PlanNode):
@@ -32,13 +33,14 @@ class PlanViewerFrame(tk.Frame):
         Set up the Configurator Frame
         """
         self.configuratorFrame = tk.Frame(self)
-        self.configuratorFrame.grid(row=0,column=0, padx=5, pady=5, sticky='nsew')
+        self.configuratorFrame.grid(row=0, column=0, padx=5, pady=5, sticky='nsew')
 
         """
         Set up the Desired Ingredient Frame
         """
         isRoot = True if self.planNode.parent is None else False
-        self.desiredIngredientFrame = DesiredIngredientFrame(self.configuratorFrame, self.planNode.plan.desiredIngredient, isRoot)
+        self.desiredIngredientFrame = DesiredIngredientFrame(self.configuratorFrame,
+                                                             self.planNode.plan.desiredIngredient, isRoot)
         self.desiredIngredientFrame.grid(row=0, column=0, padx=5, pady=5, sticky='nsew')
         self.desiredIngredientFrame.configureCallback(self.onDesiredIngredientChanged)
 
@@ -53,7 +55,7 @@ class PlanViewerFrame(tk.Frame):
         Set up the Building Selector Frame
         """
         self.buildingFrame = BuildingFrame(self.configuratorFrame, self.planNode.plan)
-        self.buildingFrame.grid(row=1, column=0,padx=5, pady=5, sticky='nsew')
+        self.buildingFrame.grid(row=1, column=0, padx=5, pady=5, sticky='nsew')
         self.buildingFrame.configureCallback(self.onBuildingChanged)
 
         """
@@ -87,6 +89,7 @@ class PlanViewerFrame(tk.Frame):
     """
     Event Handlers
     """
+
     def onDesiredIngredientChanged(self, ingredient):
         self.newPlan = Plan(desired=ingredient)
 
@@ -133,6 +136,7 @@ class PlanViewerFrame(tk.Frame):
     """
     Utility Functions
     """
+
     def configureSaveCallback(self, callbackFunction):
         self.saveCallbackFunction = callbackFunction
 
@@ -151,6 +155,7 @@ class PlanViewerFrame(tk.Frame):
             if m1 != m2:
                 return True
         return False
+
 
 if __name__ == '__main__':
     from ingredient import Ingredient

@@ -4,6 +4,7 @@ Date Created: 1/7/2021
 A Module can be inserted into buildings or beacons in order to alter productivity
 """
 from item import Item
+
 import warnings
 
 class Module(Item):

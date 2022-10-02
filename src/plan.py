@@ -12,8 +12,8 @@ from recipe import Recipe
 from building import Building
 from module import Module
 from ingredient_list import IngredientList
-from item_dictionary import itemDict
-from recipe_dictionary import recipeDict
+from dictionaries.items import itemDict
+from dictionaries.recipes import recipeDict
 
 
 class Plan():

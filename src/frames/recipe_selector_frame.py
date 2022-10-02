@@ -6,8 +6,8 @@ import tkinter as tk
 
 from recipe import Recipe
 from plan import Plan
-from recipe_dictionary import recipeDict
-import utils
+from dictionaries.recipes import recipeDict
+import utils as utils
 
 class RecipeSelectorFrame(tk.Frame):
     """

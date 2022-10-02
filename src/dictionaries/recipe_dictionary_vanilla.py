@@ -2,8 +2,6 @@
 Filename: recipe_dictionary_vanilla.py
 Date Created: 9/25/2022
 """
-""" TODO: Need to filter out what is different than the basic game and then override those/add new things """
-
 from recipe import Recipe
 from ingredient_list import IngredientList
 from ingredient import Ingredient

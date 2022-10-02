@@ -7,7 +7,7 @@ required and one for the outputs produced
 
 from ingredient_list import IngredientList
 from ingredient import Ingredient
-from item_dictionary import itemDict
+from dictionaries.items import itemDict
 
 
 class Recipe():

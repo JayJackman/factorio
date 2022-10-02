@@ -7,14 +7,15 @@ import tkinter as tk
 
 from planner_tree import PlannerTree, PlanNode
 from planner_tree_frame import PlannerTreeFrame
-from plan_viewer_frame import PlanViewerFrame
-from total_statistics_frame import TotalStatisticsFrame
+from frames.plan_viewer_frame import PlanViewerFrame
+from frames.total_statistics_frame import TotalStatisticsFrame
 from ingredient import Ingredient
 from plan import Plan
 
 
 class Settings:
     defaultIngredient = Ingredient('Electronic Circuit', 1)
+
 
 class FactorioGui(tk.Frame):
     def __init__(self, parent, desiredIngredient: Ingredient = Settings.defaultIngredient):
@@ -61,29 +62,19 @@ class FactorioGui(tk.Frame):
         """
         # If nothing changed, don't do anything
         if newPlan is None:
-            print("New plan is none")
             return
 
         if newPlan.recipe.name == 'Treat As Raw (Always)':
-            print("Recipe changed to always raw, applying to whole tree.")
             self.rootNode.applyRawIngredient(newPlan.desiredIngredient.item)
             newNode = oldNode
 
-        # BEGIN NEW CODE
         elif newPlan.recipe.name == oldNode.plan.recipe.name:
-            # if we havent changed the recipe, we want to preserve the beacons/modules/buildings/etc. for our children
-            # but we need to update the ingredient amounts (productivity modules)
-            print("Recipe didnt change, updating ingredients for subtree")
-
+            # Here, we haven't changed the recipe but need to update our children for modified ingredient amounts
             self.updateNode(oldNode, newPlan)
             newNode = oldNode
 
-        # TODO: make it so that we dont overwrite beacons of children when saving
-        # Create the new tree (stemmed from the current plan node)
-        # END NEW CODE
         else:
-            print("recipe changed, recreating tree")
-            #If the recipe changed, recreate the whole subtree
+            # If the recipe changed, recreate the whole subtree
             newNode = PlannerTree.createTree(newPlan)
 
             # if we are the root of the tree, we are done; we do not need to add our parent
@@ -100,7 +91,6 @@ class FactorioGui(tk.Frame):
         return newNode
 
     def updateNode(self, node: PlanNode, plan: Plan):
-        print("updating node with plan:", plan.recipe.name)
         node.plan = Plan.copy(plan)
         ingredients = plan.calculateRequiredInputsForDesiredOutput()
 
@@ -112,9 +102,9 @@ class FactorioGui(tk.Frame):
                     ingredientAmount = ingredient.amount
             ingredient = Ingredient(ingredientName, ingredientAmount)
 
-            newPlan = Plan(ingredient, child.plan.recipe, child.plan.building, child.plan.buildingModules.copy(), child.plan.beaconModules.copy())
+            newPlan = Plan(ingredient, child.plan.recipe, child.plan.building, child.plan.buildingModules.copy(),
+                           child.plan.beaconModules.copy())
             self.updateNode(child, newPlan)
-
 
     def onPlanNodeClicked(self, planNode: PlanNode):
         """
@@ -139,7 +129,6 @@ class FactorioGui(tk.Frame):
 
 
 if __name__ == '__main__':
-    from ingredient import Ingredient
     from tkinter import PhotoImage
 
     root = tk.Tk()
@@ -147,7 +136,8 @@ if __name__ == '__main__':
     myGui = FactorioGui(root)
     myGui.grid(row=0, column=0, sticky='nsew')
 
-    photo = PhotoImage(file='C:/Users/Jay Jackman/Desktop/Capture.PNG')
+    # photo = PhotoImage(file='C:/Users/Jay Jackman/Desktop/Capture.PNG')
+    photo = PhotoImage(file='../resources/images/single_64x64/scrap.png')
     root.iconphoto(True, photo)
     root.rowconfigure(0, weight=1)
     root.columnconfigure(0, weight=1)

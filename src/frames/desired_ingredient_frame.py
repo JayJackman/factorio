@@ -6,10 +6,10 @@ Date Created: 6/26/2021
 import tkinter as tk
 from tkinter import simpledialog
 
-import utils
+import utils as utils
 from plan import Plan
 from ingredient import Ingredient
-from item_dictionary import itemDict
+from dictionaries.items import itemDict
 
 class DesiredIngredientFrame(tk.Frame):
     def __init__(self, parent, desiredIngredient: Ingredient, isRoot: bool = False):

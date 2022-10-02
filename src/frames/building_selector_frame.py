@@ -6,10 +6,10 @@ Date Created: 6/26/2021
 import tkinter as tk
 from functools import partial
 
-import utils
+import utils as utils
 from plan import Plan
 from module import Module
-from item_dictionary import itemDict
+from dictionaries.items import itemDict
 
 class BuildingSelectorFrame(tk.Frame):
     def __init__(self, parent, plan: Plan):

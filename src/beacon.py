@@ -1,5 +1,5 @@
 """
-Filename: Beacon.py
+Filename: beacon.py
 Date Created: 9/29/2022
 """
 

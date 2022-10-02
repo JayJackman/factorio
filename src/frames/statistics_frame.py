@@ -6,7 +6,7 @@ Date Created: 6/26/2021
 import tkinter as tk
 
 from plan import Plan
-from ingredient_frame import IngredientFrame
+from frames.ingredient_frame import IngredientFrame
 from ingredient import Ingredient
 
 class StatisticsFrame(tk.Frame):

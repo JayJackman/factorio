@@ -6,10 +6,10 @@ Date Created: 9/29/2022
 import tkinter as tk
 from functools import partial
 
-import utils
+import utils as utils
 from plan import Plan
 from module import Module
-from item_dictionary import itemDict
+from dictionaries.items import itemDict
 
 class ModuleEditorFrame(tk.Frame):
     def __init__(self, parent, module: Module, num: int = 1):

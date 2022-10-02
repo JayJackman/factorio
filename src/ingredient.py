@@ -6,9 +6,10 @@ An Ingredient is an Item along with an amount. A decimal amount corresponds to a
 This is useful for recipes that might only return a waste material X percent of the time.
 """
 from item import Item
-from item_dictionary import itemDict
+from dictionaries.items import itemDict
 
-class Ingredient():
+
+class Ingredient:
     def __init__(self, name, amount):
         self.item = itemDict[name]
         self.amount = amount
@@ -16,7 +17,6 @@ class Ingredient():
 
     def __str__(self):
         return "Ingredient: " + self.item.name + "\n" + "Amount: " + str(self.amount)
-
 
 
 if __name__ == "__main__":
