@@ -1,3 +1,6 @@
 .idea/
 venv/
 tokens.txt
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
