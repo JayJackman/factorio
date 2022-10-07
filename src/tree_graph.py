@@ -3,7 +3,6 @@ Filename: tree_graph.py
 Date Created: 5/29/2021
 """
 import tkinter as tk
-# from tkinter import ttk
 from functools import partial
 from typing import List
 
@@ -45,9 +44,7 @@ class Node:
 
     def delete(self):
         while not self.isLeaf():
-            # print('Deleting Child: ' + str(self.children[0]))
             self.children[0].delete()
-        # print('Done deleting all children. parent: ' + str(self.parent))
         if self.parent is not None:
             self.parent.children.remove(self)
         else:
@@ -59,6 +56,7 @@ class Node:
         Returns the number of total nodes in the tree beneath the node (including the node)
         :return: Number of total nodes
         """
+
         def subgraphSize(node: Node):
             toReturn = 1
             for child in node.children:
@@ -71,8 +69,8 @@ class Node:
         def recursiveCall(node, doneList, last: bool):
             # Draw the right stuff
             for i, done in enumerate(doneList):
-                if i == len(doneList) - 1:    # Last
-                    if last:                  # Last child
+                if i == len(doneList) - 1:  # Last
+                    if last:  # Last child
                         print('└ ', end='')
                     else:
                         print('├ ', end='')
@@ -97,12 +95,13 @@ class Node:
 
     def __str__(self):
         toReturn = ""
-        toReturn += "Node of type " + str(type(self.obj)) + ". Depth: " + str(self.getDepth()) + " children: " + str(len(self.children))
+        toReturn += "Node of type " + str(type(self.obj)) + ". Depth: " + str(self.getDepth()) + " children: " + str(
+            len(self.children))
         return toReturn
 
 
 class Tree:
-    def __init__(self, root: Node=None):
+    def __init__(self, root: Node = None):
         self.root = root
 
     def size(self):
@@ -117,11 +116,13 @@ class Tree:
         Finds the greatest depth of the graph
         :return: depth of the graph
         """
+
         def recursiveCall(node: Node, depth: int) -> int:
             toReturn = depth
             for child in node.children:
                 toReturn = max(toReturn, recursiveCall(child, depth + 1))
             return toReturn
+
         return recursiveCall(self.root, 0)
 
     def numAtDepth(self, targetDepth: int) -> int:
@@ -130,13 +131,6 @@ class Tree:
         :param targetDepth: desired depth to count
         :return: number of nodes at the given depth
         """
-
-        # def recursiveCall(node: Node, count: int, depth: int) -> int:
-        #     if depth == targetDepth:
-        #         count += 1
-        #     for child in node.children:
-        #         count = recursiveCall(child, count, depth + 1)
-        #     return count
 
         def recursiveCall(node: Node, depth: int) -> int:
             count = 0
@@ -148,7 +142,6 @@ class Tree:
                 return count
 
         return recursiveCall(self.root, 0)
-
 
 
 class TreeViewer(tk.Frame):
@@ -163,7 +156,7 @@ class TreeViewer(tk.Frame):
 
         self.scrollable_frame.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
 
-        self.canvas.create_window((0,0), window=self.scrollable_frame, anchor='nw')
+        self.canvas.create_window((0, 0), window=self.scrollable_frame, anchor='nw')
         self.canvas.configure(yscrollcommand=self.scrollbar.set)
 
         # These will be used for determining the dimensions of the tree viewer.
@@ -176,7 +169,6 @@ class TreeViewer(tk.Frame):
 
         self.canvas.pack(side='left', fill='both', expand=True)
         self.scrollbar.pack(side='right', fill='y')
-
 
     def createGraph(self):
 
@@ -195,7 +187,8 @@ class TreeViewer(tk.Frame):
                         label.configure(text='│', bg='grey')
 
                 label.grid(row=index, column=i, sticky="nsew")
-            recipeButton = tk.Button(master=self.scrollable_frame, text=node.labelText,activebackground='green', bg='forest green', relief='raised')
+            recipeButton = tk.Button(master=self.scrollable_frame, text=node.labelText, activebackground='green',
+                                     bg='forest green', relief='raised')
             recipeButton.grid(row=index, column=len(doneList))
             # partial lets us use the callback function with a built-in argument
             recipeButton.bind("<Button-1>", partial(self.handleButtonPress, node))
@@ -217,9 +210,6 @@ class TreeViewer(tk.Frame):
         # Here, we will pass out the node to the GUI manager that owns us. Then, they can get info of the Plan by looking at the node.
         print(node)
         pass
-
-
-
 
 
 if __name__ == "__main__":
@@ -255,7 +245,6 @@ if __name__ == "__main__":
     # print(tree.size())
     tree.root.printSubgraph()
     print(tree.numAtDepth(2))
-    input("wait")
     print('number of nodes at 0:', tree.numAtDepth(0))
     print('number of nodes at 1:', tree.numAtDepth(1))
     print('number of nodes at 2:', tree.numAtDepth(2))
@@ -269,5 +258,3 @@ if __name__ == "__main__":
 
     root.mainloop()
     pass
-
-

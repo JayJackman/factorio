@@ -6,7 +6,7 @@ Date Created: 6/5/2021
 import tkinter as tk
 
 from planner_tree import PlannerTree, PlanNode
-from planner_tree_frame import PlannerTreeFrame
+from frames.planner_tree_frame import PlannerTreeFrame
 from frames.plan_viewer_frame import PlanViewerFrame
 from frames.total_statistics_frame import TotalStatisticsFrame
 from ingredient import Ingredient
@@ -14,7 +14,7 @@ from plan import Plan
 
 
 class Settings:
-    defaultIngredient = Ingredient('Electronic Circuit', 1)
+    defaultIngredient = Ingredient('Space Science Pack', 0.75)
 
 
 class FactorioGui(tk.Frame):
@@ -22,10 +22,13 @@ class FactorioGui(tk.Frame):
         tk.Frame.__init__(self, parent)
 
         self.rootNode = PlannerTree.createTree(Plan(desiredIngredient))
+        # self.configure(bg='blue')
 
         self.topFrame = tk.Frame(self)
         self.topFrame.grid(row=0, column=0, sticky='nsew')
+        # self.topFrame.configure(bg='red')
         # self.topFrame.columnconfigure([0,1], weight=1)
+        self.topFrame.rowconfigure(0, weight=1)
 
         """
         Set up the Tree on the left hand side
@@ -50,7 +53,7 @@ class FactorioGui(tk.Frame):
 
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, minsize=self.plannerTreeFrame.getMinWidth())
-        self.columnconfigure(1, weight=1)
+        self.columnconfigure([0,1], weight=1)
 
     def onPlanNodeChanged(self, oldNode: PlanNode, newPlan: Plan):
         """
@@ -60,8 +63,11 @@ class FactorioGui(tk.Frame):
         :param newPlan: The new Plan that will be used to create a new sub-tree
         :return: The new, edited node of the tree
         """
+        # print('old node:', oldNode)
+        # print('new plan:', newPlan)
         # If nothing changed, don't do anything
         if newPlan is None:
+            # print('none')
             return
 
         if newPlan.recipe.name == 'Treat As Raw (Always)':
@@ -96,10 +102,8 @@ class FactorioGui(tk.Frame):
 
         for child in node.children:
             ingredientName = child.plan.desiredIngredient.name
-            # TODO: This is garbage. IngredientList needs to be way better than it is
-            for i, ingredient in enumerate(ingredients.getIngredients()):
-                if ingredient.name == ingredientName:
-                    ingredientAmount = ingredient.amount
+            ingredientAmount = ingredients[ingredientName].amount
+
             ingredient = Ingredient(ingredientName, ingredientAmount)
 
             newPlan = Plan(ingredient, child.plan.recipe, child.plan.building, child.plan.buildingModules.copy(),
@@ -120,12 +124,14 @@ class FactorioGui(tk.Frame):
         self.planViewFrame.grid(row=0, column=1, sticky='nsew')
         self.planViewFrame.configureSaveCallback(self.onPlanNodeChanged)
 
+
     def refreshPlannerTreeFrame(self):
         self.plannerTreeFrame.destroy()
         self.plannerTreeFrame = PlannerTreeFrame(self.topFrame, self.rootNode)
         self.plannerTreeFrame.grid(row=0, column=0, sticky='nsew')
         self.plannerTreeFrame.configurePlanNodeCallback(self.onPlanNodeClicked)
-        self.columnconfigure(0, minsize=self.plannerTreeFrame.getMinWidth())
+        # self.columnconfigure(0, minsize=self.plannerTreeFrame.getMinWidth())
+        # self.columnconfigure(1, minsize=self.planViewFrame.getMinWidth())
 
 
 if __name__ == '__main__':

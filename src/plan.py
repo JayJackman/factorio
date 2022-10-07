@@ -17,7 +17,8 @@ from dictionaries.recipes import recipeDict
 
 
 class Plan():
-    def __init__(self, desired: Ingredient, recipe: Recipe = None, building: Building = None, buildingModules = None, beaconModules = None):
+    def __init__(self, desired: Ingredient, recipe: Recipe = None, building: Building = None, buildingModules=None,
+                 beaconModules=None):
         self.desiredIngredient: Ingredient = desired
         if recipe is None:
             # print(desired.item.name)
@@ -79,7 +80,8 @@ class Plan():
         numBuildings = self.calculateRequiredBuildingsForDesiredOutput()
         toReturn += "\n"
         toReturn += "  Required number of buildings: " + str(numBuildings) + "\n"
-        toReturn += "  Total inputs required for " + str(self.desiredIngredient.amount) + " " + self.desiredIngredient.name + " per second:\n"
+        toReturn += "  Total inputs required for " + str(
+            self.desiredIngredient.amount) + " " + self.desiredIngredient.name + " per second:\n"
         inputIngredientList = self.calculateRequiredInputsForDesiredOutput()
         for ingredient in inputIngredientList.getIngredients():
             toReturn += "  - " + ingredient.name + " (" + str(ingredient.amount) + ")\n"
@@ -91,7 +93,7 @@ class Plan():
 
     def promptUser(self, desiredIngredient=None):
         if desiredIngredient is None:
-            desiredItem = input("Enter the desired Item: " )
+            desiredItem = input("Enter the desired Item: ")
             while desiredItem not in itemDict:
                 desiredItem = input("Invalid Item. Please enter the desired Item: ")
             desiredAmount = int(input("Enter the desired amount (Hz): "))
@@ -100,7 +102,8 @@ class Plan():
 
         userRecipe = input("Enter the desired Recipe for making " + self.desiredIngredient.name + ": ")
         while userRecipe not in recipeDict:
-            userRecipe = input("Invalid Recipe. Please enter the desired Recipe for making " + self.desiredIngredient.name + ": ")
+            userRecipe = input(
+                "Invalid Recipe. Please enter the desired Recipe for making " + self.desiredIngredient.name + ": ")
         self.recipe = recipeDict[userRecipe]
 
         userBuilding = input("Enter the desired Building for making " + self.recipe.name + ": ")
@@ -108,8 +111,9 @@ class Plan():
             userBuilding = "Assembling Machine 3"
         elif userBuilding is "s":
             userBuilding = "Space Manufactory"
-        while userBuilding not in itemDict: # TODO: This check could be stronger (restricted to just buildings)
-            userBuilding = input("Invalid Building. Please enter the desired Building for making " + self.recipe.name + ": ")
+        while userBuilding not in itemDict:  # TODO: This check could be stronger (restricted to just buildings)
+            userBuilding = input(
+                "Invalid Building. Please enter the desired Building for making " + self.recipe.name + ": ")
         self.building = itemDict[userBuilding]
 
         while len(self.buildingModules) < self.building.moduleSlots:
@@ -204,11 +208,10 @@ class Plan():
             bonus += module.productivityEffect
         return bonus
 
-
     def calculateTotalSpeedBonus(self):
         bonus = 0
         for module in self.beaconModules:
-            bonus += module.speedEffect/2
+            bonus += module.speedEffect / 2
         for module in self.buildingModules:
             bonus += module.speedEffect
         return bonus
@@ -216,7 +219,7 @@ class Plan():
     def calculateTotalPowerBonus(self):
         bonus = 0
         for module in self.beaconModules:
-            bonus += module.powerEffect/2
+            bonus += module.powerEffect / 2
         for module in self.buildingModules:
             bonus += module.powerEffect
         return bonus
@@ -225,11 +228,11 @@ class Plan():
         """
         This calculates the amount of inputs required to keep one machine working fully
         Q = B(N/T)(1+S)
-        Q = Number of inputs required per second (Hz)
+        Q = Number of inputs required per second (Item/sec)
         B = base crafting time of the building (s)
-        N = Number of items required by the recipe (unitless)
+        N = Number of items required by the recipe (Item)
         T = time of the recipe (s)
-        S + speed bonus (unitless)
+        S = speed bonus (%)
         :return: IngredientList containing Q for every item in the input ingredientList of the recipe
         """
         B = self.building.craftingSpeed
@@ -237,10 +240,9 @@ class Plan():
         S = self.calculateTotalSpeedBonus()
         inputIngredientList = IngredientList()
         for ingredient in self.recipe.getInputs():
-            name = ingredient.name
             N = ingredient.amount
-            Q = B*N/T*(1+S)
-            inputIngredientList.addIngredient(Ingredient(name, Q))
+            Q = B * N / T * (1 + S)
+            inputIngredientList.addIngredient(Ingredient(ingredient.name, Q))
         return inputIngredientList
 
     def calculateOutputsFromOneBuilding(self):
@@ -264,7 +266,7 @@ class Plan():
             ingredient = self.recipe.outputs[key]
             name = ingredient.name
             N = ingredient.amount
-            Q = B*N/T*(1+S)*(1+P)
+            Q = B * N / T * (1 + S) * (1 + P)
             outputIngredientList.addIngredient(Ingredient(name, Q))
         return outputIngredientList
 
@@ -283,7 +285,7 @@ class Plan():
         desiredAmount = self.desiredIngredient.amount
 
         # Solve for the total number of buildings needed
-        numBuildings = desiredAmount/desiredProduced
+        numBuildings = desiredAmount / desiredProduced
         return numBuildings
 
     def calculateRequiredInputsForDesiredOutput(self):
@@ -308,6 +310,7 @@ class Plan():
         for ingredient in outputIngredientList.getIngredients():
             outputIngredientList[ingredient.name].amount *= numBuildings
         return outputIngredientList
+
 
 if __name__ == "__main__":
     # from item import Item

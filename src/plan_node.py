@@ -11,6 +11,7 @@ from ingredient import Ingredient
 
 from typing import List
 
+
 class PlanNode(Node):
     def __init__(self, parent=None, plan: Plan = None):
         Node.__init__(self, plan, parent)
@@ -58,12 +59,9 @@ class PlanNode(Node):
 
             return returnList
 
-        returnList = IngredientList()
-
-        return recursiveCall(self, returnList)
+        return recursiveCall(self, IngredientList())
 
     def applyRawIngredient(self, ingredient: Item):
-        print("applying raw ingredient:", ingredient)
         def recursiveCall(node: PlanNode):
             # if the node is the item to turn into raw, delete children and change recipe to raw
             if node.plan.desiredIngredient.name == ingredient.name:
@@ -74,8 +72,8 @@ class PlanNode(Node):
             # otherwise, look through all children to see if we find the raw item
             for child in node.children:
                 recursiveCall(child)
-        recursiveCall(self)
 
+        recursiveCall(self)
 
     def __str__(self):
         return str(self.plan.desiredIngredient.amount) + 'x ' + self.plan.desiredIngredient.name

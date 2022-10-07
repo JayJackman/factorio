@@ -125,10 +125,12 @@ class PlanViewerFrame(tk.Frame):
 
     def onCancelButtonClicked(self):
         self.newPlan = Plan.copy(self.planNode.plan)
+        # print(self.newPlan)
         self.desiredIngredientFrame.refresh(self.planNode.plan)
         self.recipeSelectorFrame.refresh(self.planNode.plan)
         self.buildingFrame.refresh(self.planNode.plan)
         self.beaconFrame.refresh(self.planNode.plan)
+        self.statisticsFrame.refresh(self.planNode.plan)
 
     def refreshStatisticsFrame(self):
         self.statisticsFrame.refresh(self.newPlan)
@@ -136,6 +138,17 @@ class PlanViewerFrame(tk.Frame):
     """
     Utility Functions
     """
+
+    def getMinWidth(self):
+        self.configuratorFrame.update_idletasks()
+        self.saveFrame.update_idletasks()
+        self.beaconFrame.update_idletasks()
+        self.buildingFrame.update_idletasks()
+        self.statisticsFrame.update_idletasks()
+        self.desiredIngredientFrame.update_idletasks()
+        self.recipeSelectorFrame.update_idletasks()
+
+        return self.desiredIngredientFrame.winfo_width() + self.recipeSelectorFrame.winfo_width() + self.statisticsFrame.winfo_width()
 
     def configureSaveCallback(self, callbackFunction):
         self.saveCallbackFunction = callbackFunction
@@ -145,10 +158,11 @@ class PlanViewerFrame(tk.Frame):
             return True
         if self.newPlan.building != self.planNode.plan.building:
             return True
+        if self.newPlan.desiredIngredient.amount != self.planNode.plan.desiredIngredient.amount:
+            return True
         if len(self.newPlan.beaconModules) != len(self.planNode.plan.beaconModules):
             return True
         for m1, m2 in zip(self.newPlan.beaconModules, self.planNode.plan.beaconModules):
-            print(m1, m2)
             if m1 != m2:
                 return True
         for m1, m2 in zip(self.newPlan.buildingModules, self.planNode.plan.buildingModules):

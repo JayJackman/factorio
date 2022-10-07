@@ -114,6 +114,7 @@ class BuildingSelectorFrame(tk.Frame):
         # self._refresh(plan.building, plan.buildingModules.copy())
         self.building = plan.building
         self.modules = plan.buildingModules.copy()
+        self.recipe = plan.recipe
 
         self.buildingIcon = utils.getIcon(plan.building.imageFile)
         self.buildingIconLabel.configure(image=self.buildingIcon)

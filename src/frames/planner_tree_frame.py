@@ -18,8 +18,8 @@ class Settings:
     buttonClickColor = 'grey'
 
 class PlannerTreeFrame(tk.Frame):
-    def __init__(self, parent, planNode: PlanNode):
-        tk.Frame.__init__(self, parent)
+    def __init__(self, parent, planNode: PlanNode, **kwargs):
+        tk.Frame.__init__(self, parent, kwargs)
 
         self.root = planNode
         self.planNodeClickCallback = utils.emptyCallback

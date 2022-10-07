@@ -249,6 +249,54 @@ recipes = ['2x Transport Belt']
 imageFilePath = imageFolder_Tiered + 'transport-belt.png'
 itemDict[name] = Item(name, stackSize, recipes, imageFilePath)
 
+name = "Underground Belt"
+stackSize = 50
+recipes = ['2x Underground Belt']
+imageFilePath = imageFolder_Tiered + 'underground-belt.png'
+itemDict[name] = Item(name, stackSize, recipes, imageFilePath)
+
+name = "Splitter"
+stackSize = 50
+recipes = ['Splitter']
+imageFilePath = imageFolder_Tiered + 'splitter.png'
+itemDict[name] = Item(name, stackSize, recipes, imageFilePath)
+
+name = "Fast Transport Belt"
+stackSize = 100
+recipes = ['Fast Transport Belt']
+imageFilePath = imageFolder_Tiered + 'fast-transport-belt.png'
+itemDict[name] = Item(name, stackSize, recipes, imageFilePath)
+
+name = "Fast Underground Belt"
+stackSize = 50
+recipes = ['2x Fast Underground Belt']
+imageFilePath = imageFolder_Tiered + 'fast-underground-belt.png'
+itemDict[name] = Item(name, stackSize, recipes, imageFilePath)
+
+name = "Fast Splitter"
+stackSize = 50
+recipes = ['Fast Splitter']
+imageFilePath = imageFolder_Tiered + 'fast-splitter.png'
+itemDict[name] = Item(name, stackSize, recipes, imageFilePath)
+
+name = "Express Transport Belt"
+stackSize = 100
+recipes = ['Express Transport Belt']
+imageFilePath = imageFolder_Tiered + 'express-transport-belt.png'
+itemDict[name] = Item(name, stackSize, recipes, imageFilePath)
+
+name = "Express Underground Belt"
+stackSize = 50
+recipes = ['2x Express Underground Belt']
+imageFilePath = imageFolder_Tiered + 'express-underground-belt.png'
+itemDict[name] = Item(name, stackSize, recipes, imageFilePath)
+
+name = "Express Splitter"
+stackSize = 50
+recipes = ['Express Splitter']
+imageFilePath = imageFolder_Tiered + 'express-splitter.png'
+itemDict[name] = Item(name, stackSize, recipes, imageFilePath)
+
 name = "Burner Inserter"
 stackSize = 50
 recipes = ['Burner Inserter']
@@ -512,7 +560,7 @@ name = "Beacon"
 stacksize = 10
 moduleSlots = 2
 powerConsumption = 480
-stackable = False
+stackable = True
 recipes = ['Beacon']
 imageFilePath = imageFolder_Tiered + 'basic-beacon.png'
 itemDict[name] = Building(name, stackSize, moduleSlots, craftingSpeed, powerConsumption, recipes, imageFilePath)

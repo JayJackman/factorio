@@ -327,7 +327,7 @@ recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIng
 Intermediates
 """
 name = "Iron Gear Wheel"
-time = 0.2
+time = 0.5
 allowsProd = True
 buildings = assembling_all
 
@@ -353,7 +353,7 @@ imageFilePath = imageFolder_Tiered + 'iron-stick.png'
 recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIngredientList, buildings, imageFilePath)
 
 name = "2x Copper Cable"
-time = 0.2
+time = 0.5
 allowsProd = True
 buildings = assembling_all
 
@@ -608,6 +608,124 @@ inputIngredientList.addIngredient(Ingredient("Iron Plate", 1))
 outputIngredientList = IngredientList()
 outputIngredientList.addIngredient(Ingredient("Transport Belt", 2))
 imageFilePath = imageFolder_Tiered + 'transport-belt.png'
+recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIngredientList, buildings, imageFilePath)
+
+name = "2x Underground Belt"
+time = 1
+allowsProd = False
+buildings = assembling_all
+
+inputIngredientList = IngredientList()
+inputIngredientList.addIngredient(Ingredient("Transport Belt", 5))
+inputIngredientList.addIngredient(Ingredient("Iron Plate", 10))
+
+outputIngredientList = IngredientList()
+outputIngredientList.addIngredient(Ingredient("Underground Belt", 2))
+imageFilePath = imageFolder_Tiered + 'underground-belt.png'
+recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIngredientList, buildings, imageFilePath)
+
+name = "Splitter"
+time = 1
+allowsProd = False
+buildings = assembling_all
+
+inputIngredientList = IngredientList()
+inputIngredientList.addIngredient(Ingredient("Transport Belt", 4))
+inputIngredientList.addIngredient(Ingredient("Electronic Circuit", 5))
+inputIngredientList.addIngredient(Ingredient("Iron Plate", 5))
+
+outputIngredientList = IngredientList()
+outputIngredientList.addIngredient(Ingredient("Splitter", 1))
+imageFilePath = imageFolder_Tiered + 'splitter.png'
+recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIngredientList, buildings, imageFilePath)
+
+name = "Fast Transport Belt"
+time = 0.5
+allowsProd = False
+buildings = assembling_all
+
+inputIngredientList = IngredientList()
+inputIngredientList.addIngredient(Ingredient("Transport Belt", 1))
+inputIngredientList.addIngredient(Ingredient("Iron Gear Wheel", 5))
+
+outputIngredientList = IngredientList()
+outputIngredientList.addIngredient(Ingredient("Fast Transport Belt", 1))
+imageFilePath = imageFolder_Tiered + 'fast-transport-belt.png'
+recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIngredientList, buildings, imageFilePath)
+
+name = "2x Fast Underground Belt"
+time = 2
+allowsProd = False
+buildings = assembling_all
+
+inputIngredientList = IngredientList()
+inputIngredientList.addIngredient(Ingredient("Underground Belt", 2))
+inputIngredientList.addIngredient(Ingredient("Iron Gear Wheel", 40))
+
+outputIngredientList = IngredientList()
+outputIngredientList.addIngredient(Ingredient("Fast Underground Belt", 2))
+imageFilePath = imageFolder_Tiered + 'fast-underground-belt.png'
+recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIngredientList, buildings, imageFilePath)
+
+name = "Fast Splitter"
+time = 2
+allowsProd = False
+buildings = assembling_all
+
+inputIngredientList = IngredientList()
+inputIngredientList.addIngredient(Ingredient("Splitter", 1))
+inputIngredientList.addIngredient(Ingredient("Electronic Circuit", 10))
+inputIngredientList.addIngredient(Ingredient("Iron Gear Wheel", 10))
+
+outputIngredientList = IngredientList()
+outputIngredientList.addIngredient(Ingredient("Fast Splitter", 1))
+imageFilePath = imageFolder_Tiered + 'fast-splitter.png'
+recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIngredientList, buildings, imageFilePath)
+
+name = "Express Transport Belt"
+time = 0.5
+allowsProd = False
+buildings = assembling_all
+
+inputIngredientList = IngredientList()
+inputIngredientList.addIngredient(Ingredient("Fast Transport Belt", 1))
+inputIngredientList.addIngredient(Ingredient("Iron Gear Wheel", 10))
+inputIngredientList.addIngredient(Ingredient("Lubricant", 20))
+
+outputIngredientList = IngredientList()
+outputIngredientList.addIngredient(Ingredient("Express Transport Belt", 1))
+imageFilePath = imageFolder_Tiered + 'express-transport-belt.png'
+recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIngredientList, buildings, imageFilePath)
+
+name = "2x Express Underground Belt"
+time = 2
+allowsProd = False
+buildings = assembling_all
+
+inputIngredientList = IngredientList()
+inputIngredientList.addIngredient(Ingredient("Fast Underground Belt", 2))
+inputIngredientList.addIngredient(Ingredient("Iron Gear Wheel", 80))
+inputIngredientList.addIngredient(Ingredient("Lubricant", 40))
+
+outputIngredientList = IngredientList()
+outputIngredientList.addIngredient(Ingredient("Express Underground Belt", 2))
+imageFilePath = imageFolder_Tiered + 'express-underground-belt.png'
+recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIngredientList, buildings, imageFilePath)
+
+name = "Express Splitter"
+time = 2
+allowsProd = False
+buildings = assembling_all
+
+inputIngredientList = IngredientList()
+inputIngredientList.addIngredient(Ingredient("Advanced Circuit", 10))
+inputIngredientList.addIngredient(Ingredient("Iron Gear Wheel", 10))
+inputIngredientList.addIngredient(Ingredient("Lubricant", 80))
+inputIngredientList.addIngredient(Ingredient("Fast Splitter", 1))
+
+outputIngredientList = IngredientList()
+outputIngredientList.addIngredient(Ingredient("Express Splitter", 1))
+imageFilePath = imageFolder_Tiered + 'express-splitter.png'
 recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIngredientList, buildings, imageFilePath)
 
 name = "Burner Inserter"
@@ -1116,7 +1234,7 @@ recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIng
 
 name = "Rocket Part"
 time = 3
-allowsProd = False
+allowsProd = True
 buildings = assembling_space
 
 inputIngredientList = IngredientList()
@@ -1149,7 +1267,7 @@ recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIng
 Modules
 """
 name = "Speed Module 1"
-time = 2
+time = 15
 allowsProd = False
 buildings = assembling_all
 
@@ -1163,7 +1281,7 @@ imageFilePath = imageFolder_Single_64x64 + 'speed-1.png'
 recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIngredientList, buildings, imageFilePath)
 
 name = "Speed Module 2"
-time = 4
+time = 30
 allowsProd = False
 buildings = assembling_all
 
@@ -1178,7 +1296,7 @@ imageFilePath = imageFolder_Single_64x64 + 'speed-2.png'
 recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIngredientList, buildings, imageFilePath)
 
 name = "Speed Module 3"
-time = 8
+time = 60
 allowsProd = False
 buildings = assembling_all
 
@@ -1193,7 +1311,7 @@ imageFilePath = imageFolder_Single_64x64 + 'speed-3.png'
 recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIngredientList, buildings, imageFilePath)
 
 name = "Productivity Module 1"
-time = 2
+time = 15
 allowsProd = False
 buildings = assembling_all
 
@@ -1207,7 +1325,7 @@ imageFilePath = imageFolder_Single_64x64 + 'productivity-1.png'
 recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIngredientList, buildings, imageFilePath)
 
 name = "Productivity Module 2"
-time = 4
+time = 30
 allowsProd = False
 buildings = assembling_all
 
@@ -1222,7 +1340,7 @@ imageFilePath = imageFolder_Single_64x64 + 'productivity-2.png'
 recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIngredientList, buildings, imageFilePath)
 
 name = "Productivity Module 3"
-time = 8
+time = 60
 allowsProd = False
 buildings = assembling_all
 
@@ -1237,7 +1355,7 @@ imageFilePath = imageFolder_Single_64x64 + 'productivity-3.png'
 recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIngredientList, buildings, imageFilePath)
 
 name = "Efficiency Module 1"
-time = 2
+time = 15
 allowsProd = False
 buildings = assembling_all
 
@@ -1251,7 +1369,7 @@ imageFilePath = imageFolder_Single_64x64 + 'effectivity-1.png'
 recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIngredientList, buildings, imageFilePath)
 
 name = "Efficiency Module 2"
-time = 4
+time = 30
 allowsProd = False
 buildings = assembling_all
 
@@ -1266,7 +1384,7 @@ imageFilePath = imageFolder_Single_64x64 + 'effectivity-2.png'
 recipeDict[name] = Recipe(name, time, allowsProd, inputIngredientList, outputIngredientList, buildings, imageFilePath)
 
 name = "Efficiency Module 3"
-time = 8
+time = 60
 allowsProd = False
 buildings = assembling_all
 

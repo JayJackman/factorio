@@ -5,14 +5,13 @@ Date Created: 5/31/2021
 from tree_graph import Tree
 from plan_node import PlanNode
 from plan import Plan
-from ingredient import Ingredient # TODO, do a list of ingredients all at the same time
+from ingredient import Ingredient  # TODO, do a list of ingredients all at the same time
 
 
 class PlannerTree(Tree):
     def __init__(self, desired: Ingredient = None):
         Tree.__init__(self)
         self.root = self.create(desired)
-
 
     @classmethod
     def createTree(cls, plan: Plan):
@@ -41,7 +40,6 @@ class PlannerTree(Tree):
         return newPlanNode
 
 
-
 if __name__ == "__main__":
     from tree_graph import TreeViewer
     import tkinter as tk
@@ -54,9 +52,3 @@ if __name__ == "__main__":
     viewer = TreeViewer(root, myTree)
     viewer.pack(fill='both', expand=1)
     root.mainloop()
-
-
-
-
-
-

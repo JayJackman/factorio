@@ -5,6 +5,7 @@ Date Created: 9/29/2022
 
 from item import Item
 
+
 class Beacon(Item):
     def __init__(self, name, stackSize, moduleSlots, powerConsumption, stackable, recipes, imageFilePath=None):
         super(Beacon, self).__init__(name, stackSize, recipes, imageFilePath)

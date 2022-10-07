@@ -7,11 +7,13 @@ from item import Item
 
 import warnings
 
+
 class Module(Item):
     moduleTypes = ['p', 's', 'e', 'n']
 
-    def __init__(self, name, stackSize, moduleType, productivityEffect, speedEffect, powerEffect, recipes, imageFilePath=None):
-        super(Module,self).__init__(name, stackSize, recipes, imageFilePath)
+    def __init__(self, name, stackSize, moduleType, productivityEffect, speedEffect, powerEffect, recipes,
+                 imageFilePath=None):
+        super(Module, self).__init__(name, stackSize, recipes, imageFilePath)
         if moduleType not in Module.moduleTypes:
             warnings.warn("Invalid Module Type")
         self.type = moduleType
