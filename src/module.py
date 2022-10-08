@@ -31,7 +31,7 @@ class Module(Item):
 
     @staticmethod
     def type2name(moduleType):
-        if moduleType not in moduleType:
+        if moduleType not in Module.moduleTypes:
             warnings.warn("Invalid Module Type")
         if moduleType is 'p':
             return 'Productivity'
