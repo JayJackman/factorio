@@ -1273,7 +1273,7 @@ buildings = assembling_all
 
 inputIngredientList = IngredientList()
 inputIngredientList.addIngredient(Ingredient("Electronic Circuit", 5))
-inputIngredientList.addIngredient(Ingredient("Advanced Circuit", 1))
+inputIngredientList.addIngredient(Ingredient("Advanced Circuit", 5))
 
 outputIngredientList = IngredientList()
 outputIngredientList.addIngredient(Ingredient("Speed Module 1", 1))
@@ -1317,7 +1317,7 @@ buildings = assembling_all
 
 inputIngredientList = IngredientList()
 inputIngredientList.addIngredient(Ingredient("Electronic Circuit", 5))
-inputIngredientList.addIngredient(Ingredient("Advanced Circuit", 1))
+inputIngredientList.addIngredient(Ingredient("Advanced Circuit", 5))
 
 outputIngredientList = IngredientList()
 outputIngredientList.addIngredient(Ingredient("Productivity Module 1", 1))
@@ -1361,7 +1361,7 @@ buildings = assembling_all
 
 inputIngredientList = IngredientList()
 inputIngredientList.addIngredient(Ingredient("Electronic Circuit", 5))
-inputIngredientList.addIngredient(Ingredient("Advanced Circuit", 1))
+inputIngredientList.addIngredient(Ingredient("Advanced Circuit", 5))
 
 outputIngredientList = IngredientList()
 outputIngredientList.addIngredient(Ingredient("Efficiency Module 1", 1))
