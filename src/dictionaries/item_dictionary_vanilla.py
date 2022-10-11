@@ -27,6 +27,18 @@ BUILDINGS = [
     'Pumpjack'
 ]
 
+MODULES = [
+    'Productivity Module 1',
+    'Productivity Module 2',
+    'Productivity Module 3',
+    'Speed Module 1',
+    'Speed Module 2',
+    'Speed Module 3',
+    'Efficiency Module 1',
+    'Efficiency Module 2',
+    'Efficiency Module 3'
+]
+
 itemDict = {}
 
 """

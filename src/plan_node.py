@@ -99,11 +99,13 @@ class PlanNode(Node):
         def recursiveCall(node: PlanNode):
             # Check to see if the module is compatible with the recipe
             if module.productivityEffect == 0 or node.plan.recipe.allowsProd:
-                print(module)
                 node.plan.clearBuildingModules()
                 node.plan.fillBuildingModules(module)
 
+            newInputList = node.plan.calculateRequiredInputsForDesiredOutput()
             for child in node.children:
+                # We must recalculate the desired ingredient for our children if we have added prod modules
+                child.plan.desiredIngredient.amount = newInputList[child.plan.desiredIngredient.name].amount
                 recursiveCall(child)
 
         recursiveCall(self)

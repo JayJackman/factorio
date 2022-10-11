@@ -20,7 +20,7 @@ from planner_tree import PlanNode
 import utils
 from plan import Plan
 from building import Building
-from dictionaries.items import BUILDINGS, itemDict
+from dictionaries.items import BUILDINGS, itemDict, MODULES
 
 # Import the subframe classes
 from frames.recipe_selector_frame import RecipeSelectorFrame
@@ -39,7 +39,7 @@ class ConfiguratorFrame(tk.Frame):
         self.label.grid(row=0, column=0, columnspan=2, padx=5, pady=5, sticky='nsew')
 
         """
-        Set up the Building Selector Button
+        Set up the Apply Building Frame
         """
         self.buildingSelectorFrame = tk.Frame(self, borderwidth=1, relief='raised')
         self.buildingSelectorFrame.grid(row=1, column=0, padx=5, pady=5, sticky='nsew')
@@ -65,6 +65,40 @@ class ConfiguratorFrame(tk.Frame):
         self.applyBuildingButton.grid(row=0, column=1, padx=5, pady=5)
         self.buildingChangedCallback = utils.emptyCallback
 
+        """
+        Set up the Apply Building Module Frame
+        """
+        self.buildingModuleSelectorFrame = tk.Frame(self, borderwidth=1, relief='raised')
+        self.buildingModuleSelectorFrame.grid(row=2, column=0, padx=5, pady=5, sticky='nsew')
+
+        # Holds the module icon and the optionMenu
+        self.buildingModuleDropdownFrame = tk.Frame(self.buildingModuleSelectorFrame)
+        self.buildingModuleDropdownFrame.grid(row=0, column=0, rowspan=2, padx=5, pady=5, sticky='nsew')
+
+        # Set up the icon for the building
+        self.buildingModuleIcon = utils.getEmptyImageIcon()
+        self.buildingModuleLabel = tk.Label(self.buildingModuleDropdownFrame, image=self.buildingModuleIcon)
+        self.buildingModuleLabel.grid(row=0, column=0, padx=5, pady=5, sticky='nsew')
+
+        # Set up the Option menu
+        self.selectedBuildingModuleStringVar = tk.StringVar(self.buildingModuleSelectorFrame)
+        self.selectedBuildingModuleStringVar.set('Select Module')
+        self.buildingModuleOptionMenu = tk.OptionMenu(self.buildingModuleDropdownFrame, self.selectedBuildingModuleStringVar,
+                                                      *MODULES, command=self.onBuildingModuleSelected)
+        self.buildingModuleOptionMenu.grid(row=1, column=0, padx=5, pady=5, sticky='nsew')
+
+        # Set up the apply button
+        self.applyBuildingModuleButton = tk.Button(self.buildingModuleSelectorFrame, text='Apply Module',
+                                             command=self.onApplyBuildingModule)
+        self.applyBuildingModuleButton.grid(row=0, column=1, padx=5, pady=5)
+        self.buildingModuleChangedCallback = utils.emptyCallback
+
+        # Set up the clear all button
+        self.clearBuildingModulesButton = tk.Button(self.buildingModuleSelectorFrame, text='Clear Modules',
+                                                    command=self.onClearBuildingModules)
+        self.clearBuildingModulesButton.grid(row=1, column=1, padx=5, pady=5)
+
+    """ METHODS FOR BUILDING APPLICATION """
     def onBuildingSelected(self, buildingName):
         building = itemDict[buildingName]
         self.buildingIcon = utils.getIcon(building.imageFile)
@@ -79,3 +113,22 @@ class ConfiguratorFrame(tk.Frame):
 
         building = itemDict[self.selectedBuildingStringVar.get()]
         self.buildingChangedCallback(building)
+
+    """ METHODS FOR BUILDING MODULE APPLICATION """
+    def onBuildingModuleSelected(self, moduleName):
+        module = itemDict[moduleName]
+        self.buildingModuleIcon = utils.getIcon(module.imageFile)
+        self.buildingModuleLabel.configure(image=self.buildingModuleIcon)
+
+    def configureBuildingModuleCallback(self, callback):
+        self.buildingModuleChangedCallback = callback
+
+    def onApplyBuildingModule(self):
+        if self.selectedBuildingModuleStringVar.get() == 'Select Module':
+            return
+
+        module = itemDict[self.selectedBuildingModuleStringVar.get()]
+        self.buildingModuleChangedCallback(module)
+
+    def onClearBuildingModules(self):
+        self.buildingModuleChangedCallback(itemDict['Empty Module'])

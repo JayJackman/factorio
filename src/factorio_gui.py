@@ -6,6 +6,7 @@ Date Created: 6/5/2021
 import tkinter as tk
 
 from building import Building
+from module import Module
 from planner_tree import PlannerTree, PlanNode
 from ingredient import Ingredient
 from plan import Plan
@@ -53,6 +54,7 @@ class FactorioGui(tk.Frame):
         self.globalConfigFrame = ConfiguratorFrame(self.topFrame)
         self.globalConfigFrame.grid(row=0, column=2, padx=5, pady=5, sticky='nsew')
         self.globalConfigFrame.configureBuildingCallback(self.onGlobalBuildingChanged)
+        self.globalConfigFrame.configureBuildingModuleCallback(self.onGlobalBuildingModuleChanged)
 
         """
         Set up the total statistics frame on the bottom
@@ -143,22 +145,41 @@ class FactorioGui(tk.Frame):
         # self.columnconfigure(0, minsize=self.plannerTreeFrame.getMinWidth())
         # self.columnconfigure(1, minsize=self.planViewFrame.getMinWidth())
 
+    """ METHODS FOR INTERACTION WITH THE GLOBAL CONFIGURATOR FRAME """
     def onGlobalBuildingChanged(self, building: Building):
         # If we are in the middle of changing a specific node, we don't want to muck things up. Force the user to save.
         if self.planViewFrame.isDirty():
             print('Dirty! dont change me!')
             return
 
+        self.rootNode.applyBuilding(building.name)
+
         currentNode = self.planViewFrame.planNode
         self.planViewFrame.destroy()
-
-        self.rootNode.applyBuilding(building.name)
-        self.refreshPlannerTreeFrame()
-        self.totalStatisticsFrame.refresh(self.rootNode)
-
         self.planViewFrame = PlanViewerFrame(self.topFrame, currentNode)
         self.planViewFrame.grid(row=0, column=1, sticky='nsew')
         self.planViewFrame.configureSaveCallback(self.onPlanNodeChanged)
+
+        self.refreshPlannerTreeFrame()
+        self.totalStatisticsFrame.refresh(self.rootNode)
+
+    def onGlobalBuildingModuleChanged(self, module: Module):
+        # If we are in the middle of changing a specific node, we don't want to muck things up. Force the user to save.
+        if self.planViewFrame.isDirty():
+            print('Dirty! dont change me!')
+            return
+
+        self.rootNode.setAllBuildingModules(module)
+
+        currentNode = self.planViewFrame.planNode
+        self.planViewFrame.destroy()
+        self.planViewFrame = PlanViewerFrame(self.topFrame, currentNode)
+        self.planViewFrame.grid(row=0, column=1, sticky='nsew')
+        self.planViewFrame.configureSaveCallback(self.onPlanNodeChanged)
+
+        self.refreshPlannerTreeFrame()
+        self.totalStatisticsFrame.refresh(self.rootNode)
+
 
 
 
