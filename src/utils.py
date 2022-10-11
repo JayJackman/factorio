@@ -19,3 +19,8 @@ def getIcon(filename):
 
 def emptyCallback(*args):
     pass
+
+
+def getEmptyImageIcon():
+    image = Image.open('../resources/images/tiered/water-wube.png').crop(box=(64, 0, 64 + 32, 32))
+    return ImageTk.PhotoImage(image)

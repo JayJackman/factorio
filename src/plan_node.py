@@ -3,6 +3,9 @@ Filename: plan_node.py
 Date Created: 5/31/2021
 """
 from item import Item
+from dictionaries.items import itemDict
+from building import Building
+from module import Module
 from plan import Plan
 from recipe import Recipe
 from tree_graph import Node
@@ -70,6 +73,36 @@ class PlanNode(Node):
                 node.plan.recipe = Recipe.getEmptyRecipe(node.plan.desiredIngredient)
                 return
             # otherwise, look through all children to see if we find the raw item
+            for child in node.children:
+                recursiveCall(child)
+
+        recursiveCall(self)
+
+    def applyBuilding(self, buildingName: str):
+        """ Search through each node and apply the building if it is applicable to the recipe """
+        def recursiveCall(node: PlanNode):
+            # Check to see if the building is compatible with the plan node
+            if buildingName in node.plan.recipe.buildings:
+                node.plan.setBuilding(buildingName)
+
+            # Check children
+            for child in node.children:
+                recursiveCall(child)
+
+        recursiveCall(self)
+
+    def setAllBuildingModules(self, module: Module):
+        """
+        Search through each node and overwrite all the building module slots with the
+        module if it is allowed by the recipe
+        """
+        def recursiveCall(node: PlanNode):
+            # Check to see if the module is compatible with the recipe
+            if module.productivityEffect == 0 or node.plan.recipe.allowsProd:
+                print(module)
+                node.plan.clearBuildingModules()
+                node.plan.fillBuildingModules(module)
+
             for child in node.children:
                 recursiveCall(child)
 

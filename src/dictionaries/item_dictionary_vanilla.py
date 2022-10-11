@@ -11,6 +11,22 @@ from module import Module
 imageFolder_Tiered = '../resources/images/tiered/'
 imageFolder_Single_64x64 = '../resources/images/single_64x64/'
 
+BUILDINGS = [
+    'Assembling Machine 1',
+    'Assembling Machine 2',
+    'Assembling Machine 3',
+    'Rocket Silo',
+    'Chemical Plant',
+    'Oil Refinery',
+    'Stone Furnace',
+    'Steel Furnace',
+    'Electric Furnace',
+    'Burner Mining Drill',
+    'Electric Mining Drill',
+    'Offshore Pump',
+    'Pumpjack'
+]
+
 itemDict = {}
 
 """

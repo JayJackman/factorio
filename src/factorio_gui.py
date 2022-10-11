@@ -5,12 +5,15 @@ Date Created: 6/5/2021
 
 import tkinter as tk
 
+from building import Building
 from planner_tree import PlannerTree, PlanNode
+from ingredient import Ingredient
+from plan import Plan
+
 from frames.planner_tree_frame import PlannerTreeFrame
 from frames.plan_viewer_frame import PlanViewerFrame
 from frames.total_statistics_frame import TotalStatisticsFrame
-from ingredient import Ingredient
-from plan import Plan
+from frames.configurator_frame import ConfiguratorFrame
 
 
 class Settings:
@@ -43,6 +46,13 @@ class FactorioGui(tk.Frame):
         self.planViewFrame = PlanViewerFrame(self.topFrame, self.rootNode)
         self.planViewFrame.grid(row=0, column=1, padx=5, pady=5, sticky='nsew')
         self.planViewFrame.configureSaveCallback(self.onPlanNodeChanged)
+
+        """
+        Set up the Global Configurator Frame on the right
+        """
+        self.globalConfigFrame = ConfiguratorFrame(self.topFrame)
+        self.globalConfigFrame.grid(row=0, column=2, padx=5, pady=5, sticky='nsew')
+        self.globalConfigFrame.configureBuildingCallback(self.onGlobalBuildingChanged)
 
         """
         Set up the total statistics frame on the bottom
@@ -96,6 +106,7 @@ class FactorioGui(tk.Frame):
         # print("newNode:", newNode)
         return newNode
 
+    # TODO: Move this to PlanNode?
     def updateNode(self, node: PlanNode, plan: Plan):
         node.plan = Plan.copy(plan)
         ingredients = plan.calculateRequiredInputsForDesiredOutput()
@@ -124,7 +135,6 @@ class FactorioGui(tk.Frame):
         self.planViewFrame.grid(row=0, column=1, sticky='nsew')
         self.planViewFrame.configureSaveCallback(self.onPlanNodeChanged)
 
-
     def refreshPlannerTreeFrame(self):
         self.plannerTreeFrame.destroy()
         self.plannerTreeFrame = PlannerTreeFrame(self.topFrame, self.rootNode)
@@ -133,13 +143,35 @@ class FactorioGui(tk.Frame):
         # self.columnconfigure(0, minsize=self.plannerTreeFrame.getMinWidth())
         # self.columnconfigure(1, minsize=self.planViewFrame.getMinWidth())
 
+    def onGlobalBuildingChanged(self, building: Building):
+        # If we are in the middle of changing a specific node, we don't want to muck things up. Force the user to save.
+        if self.planViewFrame.isDirty():
+            print('Dirty! dont change me!')
+            return
+
+        currentNode = self.planViewFrame.planNode
+        self.planViewFrame.destroy()
+
+        self.rootNode.applyBuilding(building.name)
+        self.refreshPlannerTreeFrame()
+        self.totalStatisticsFrame.refresh(self.rootNode)
+
+        self.planViewFrame = PlanViewerFrame(self.topFrame, currentNode)
+        self.planViewFrame.grid(row=0, column=1, sticky='nsew')
+        self.planViewFrame.configureSaveCallback(self.onPlanNodeChanged)
+
+
 
 if __name__ == '__main__':
     from tkinter import PhotoImage
+    from dictionaries.items import itemDict
 
     root = tk.Tk()
 
     myGui = FactorioGui(root)
+
+    # myGui.rootNode.applyBuilding('Assembling Machine 3')
+    # myGui.rootNode.setAllBuildingModules(itemDict['Productivity Module 3'])
     myGui.grid(row=0, column=0, sticky='nsew')
 
     # photo = PhotoImage(file='C:/Users/Jay Jackman/Desktop/Capture.PNG')

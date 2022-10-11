@@ -154,7 +154,15 @@ class Plan():
             for d in range(num):
                 self.addBeaconModule(itemDict[moduleName])
 
-    def addBuildingModule(self, module: Module):
+    def setBuilding(self, buildingName: str) -> bool:
+        if buildingName not in self.recipe.buildings:
+            warnings.warn("Building " + buildingName + " is not allowed by recipe")
+            return False
+        self.building = itemDict[buildingName]
+        self.clearBuildingModules()
+        return True
+
+    def addBuildingModule(self, module: Module) -> bool:
         if not self.recipe.allowsProd and module.productivityEffect != 0:
             warnings.warn("This recipe does not allow productivity modules.")
             return False
@@ -165,6 +173,19 @@ class Plan():
             return False
 
         return True
+
+    def fillBuildingModules(self, module: Module) -> bool:
+        """ This function fills empty building slots with the input module """
+        if not self.recipe.allowsProd and module.productivityEffect != 0:
+            warnings.warn("This recipe does not allow productivity modules.")
+            return False
+
+        for i in range(len(self.buildingModules)):
+            self.buildingModules[i] = module
+        return True
+
+    def clearBuildingModules(self):
+        self.buildingModules = Plan.makeEmptyModuleList(self.building.moduleSlots)
 
     def addBeaconModule(self, module: Module):
         if module.productivityEffect == 0:
